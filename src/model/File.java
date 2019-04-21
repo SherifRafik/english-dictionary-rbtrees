@@ -1,8 +1,10 @@
-package rbtrees;
+package model;
+
+import model.rbtrees.Node;
+import model.rbtrees.RedBlackTree;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,8 +13,8 @@ public class File {
 	
     private String filePath;
     
-    public File() {
-        filePath = "src/resources/dictionary.txt";
+    public File(String path) {
+        filePath = "src/resources/" + path;
     }
 	
 	public void readFile(RedBlackTree tree) {
@@ -25,8 +27,6 @@ public class File {
 				word = bufferedReader.readLine();
 			}
 			bufferedReader.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,14 +38,12 @@ public class File {
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			writeToFile(bufferedWriter , tree , tree.getRoot());
 			bufferedWriter.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 	
-	// Need this function to avoid creating new FileWriter and BufferedWriter in recusrion
+	// Need this function to avoid creating new FileWriter and BufferedWriter in recursion
 	// In-order Traversal of rb tree
 	private void writeToFile(BufferedWriter bufferedWriter , RedBlackTree tree , Node node) {
 		if(node != tree.getNil()) {

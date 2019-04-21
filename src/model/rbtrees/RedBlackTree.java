@@ -1,4 +1,4 @@
-package rbtrees;
+package model.rbtrees;
 
 public class RedBlackTree {
 
@@ -8,19 +8,25 @@ public class RedBlackTree {
 
 	public RedBlackTree() {
         nil.setColor(Node.Color.BLACK);
+        nil.setParent(nil);
+        nil.setLeft(nil);
+        nil.setRight(nil);
 		this.root= nil;
 		size = 0;
 	}
 
-	public RedBlackTree(String data) {
+	/*public RedBlackTree(String data) {
 		nil.setColor(Node.Color.BLACK);
+		nil.setParent(nil);
+		nil.setLeft(nil);
+		nil.setRight(nil);
 		root = new Node(data);
 		root.setColor(Node.Color.BLACK);  //Root node is always black
 		root.setLeft(nil);
 		root.setRight(nil);
 		root.setParent(nil);
-		size = 0;
-	}
+		size = 1;
+	}*/
 
 	/*
 	 * Properties violated are 
@@ -121,46 +127,46 @@ public class RedBlackTree {
 		this.root.setColor(Node.Color.BLACK);
 	}
 	
-	private void rotateLeft(Node x){
-        Node y = nil;
-        if(x.getRight() != nil)
-            y = x.getRight();
+	private void rotateLeft(Node parentNode){
+        Node childNode = nil;
+        if(parentNode.getRight() != nil)
+            childNode = parentNode.getRight();
 
-        x.setRight(y.getLeft());
-        if(y.getLeft() != nil)
-            y.getLeft().setParent(x);
+        parentNode.setRight(childNode.getLeft());
+        if(childNode.getLeft() != nil)
+            childNode.getLeft().setParent(parentNode);
 
-        y.setParent(x.getParent());
-        if(x.getParent() == nil)
-            root = y;
-        else if (x.isLeftChild())
-            x.getParent().setLeft(y);
+        childNode.setParent(parentNode.getParent());
+        if(parentNode.getParent() == nil)
+            root = childNode;
+        else if (parentNode.isLeftChild())
+            parentNode.getParent().setLeft(childNode);
         else
-        	x.getParent().setRight(y);
+        	parentNode.getParent().setRight(childNode);
 
-        y.setLeft(x);
-        x.setParent(y);
-    }
+        childNode.setLeft(parentNode);
+        parentNode.setParent(childNode);
+	}
 	 
-	private void rotateRight(Node x){
-        Node y = nil;
-        if (x.getLeft() != nil)
-            y = x.getLeft();
+	private void rotateRight(Node parentNode){
+        Node childNode = nil;
+        if (parentNode.getLeft() != nil)
+            childNode = parentNode.getLeft();
 
-        x.setLeft(y.getRight());
-        if(y.getRight() != nil)
-            y.getRight().setParent(x);
+        parentNode.setLeft(childNode.getRight());
+        if(childNode.getRight() != nil)
+            childNode.getRight().setParent(parentNode);
 
-        y.setParent(x.getParent());
-        if(x.getParent() == nil)
-            root = y;
-        else if(x.isLeftChild())
-            x.getParent().setLeft(y);
+        childNode.setParent(parentNode.getParent());
+        if(parentNode.getParent() == nil)
+            root = childNode;
+        else if(parentNode.isLeftChild())
+            parentNode.getParent().setLeft(childNode);
         else
-        	x.getParent().setRight(y);
+        	parentNode.getParent().setRight(childNode);
 
-        y.setRight(x);
-        x.setParent(y);
+        childNode.setRight(parentNode);
+        parentNode.setParent(childNode);
     }
 
 	public boolean delete(String value) {
@@ -184,13 +190,13 @@ public class RedBlackTree {
 		}
 
 		// Reaching this line means that the node
-		// EITHER has on child
+		// EITHER has one child
 		// OR is a leaf node
 		Node child = nil;
 		if (node.getLeft() != nil)
 			child = node.getLeft();
 		else if (node.getRight() != nil)
-			child = node.getLeft();
+			child = node.getRight();
 
 		// If node is red
 		// Simple Case: either the node or its child is red
@@ -224,7 +230,12 @@ public class RedBlackTree {
 			return;
 		}
 
-		Node sibling = node.getSibling();
+		Node sibling;
+		try {
+			sibling = node.getSibling();
+		} catch (Exception e) {
+			sibling = nil;
+		}
 		while (node.isDoubleBlack() && node != root) {
 
 			// Sibling is RED
@@ -235,11 +246,11 @@ public class RedBlackTree {
 				if (sibling.isLeftChild()) {
 					// left case
 					// right rotate the parent
-					rotateRight(node.getParent());
+					rightRotate(node.getParent());
 				} else {
 					// right case
 					// left rotate the parent
-					rotateLeft(node.getParent());
+					leftRotate(node.getParent());
 				}
 				node.setDoubleBlack(false);
 			}
@@ -247,11 +258,13 @@ public class RedBlackTree {
 			// Sibling is black and both its children are black
 			else if (sibling.getLeft().getColor() == Node.Color.BLACK  &&  sibling.getRight().getColor() == Node.Color.BLACK){
 				sibling.setColor(Node.Color.RED);
-				if (sibling.getParent().getColor() == Node.Color.RED) {
-					sibling.getParent().setColor(Node.Color.BLACK);
+				if (node.getParent().getColor() == Node.Color.RED) {
+					node.getParent().setColor(Node.Color.BLACK);
+					node.setDoubleBlack(false);
 					return;
 				} else {
 					sibling.getParent().setDoubleBlack(true);
+					node.setDoubleBlack(false);
 					fixDoubleBlack(sibling.getParent());
 				}
 			}
@@ -261,20 +274,20 @@ public class RedBlackTree {
 				if (sibling.isLeftChild()){
 					if (sibling.getLeft().getColor() == Node.Color.RED){		// left left
 						sibling.getLeft().setColor(Node.Color.BLACK);
-						rotateRight(node.getParent());
-					} else {										// left right
+						rightRotate(node.getParent());
+					} else {													// left right
 						sibling.getRight().setColor(Node.Color.BLACK);
-						rotateLeft(sibling);
-						rotateRight(node.getParent());
+						leftRotate(sibling);
+						rightRotate(node.getParent());
 					}
 				} else {
-					if (sibling.getLeft().getColor() == Node.Color.RED){		// right left
-						sibling.getLeft().setColor(Node.Color.BLACK);
-						rotateRight(sibling);
-						rotateLeft(node.getParent());
-					} else {										// right right
+					if (sibling.getRight().getColor() == Node.Color.RED){		// right right
 						sibling.getRight().setColor(Node.Color.BLACK);
-						rotateLeft(node.getParent());
+						leftRotate(node.getParent());
+					} else {													// right left
+						sibling.getLeft().setColor(Node.Color.BLACK);
+						rightRotate(sibling);
+						leftRotate(node.getParent());
 					}
 				}
 				node.setDoubleBlack(false);
@@ -282,14 +295,46 @@ public class RedBlackTree {
 		}
 	}
 
+	private void leftRotate(Node parentNode){
+		Node rightChild = parentNode.getRight();
+
+		rightChild.setParent(parentNode.getParent());
+		if (parentNode.isLeftChild())
+			parentNode.getParent().setLeft(rightChild);
+		else
+			parentNode.getParent().setRight(rightChild);
+
+		parentNode.setRight(rightChild.getLeft());
+		parentNode.getRight().setParent(parentNode);
+
+		rightChild.setLeft(parentNode);
+		parentNode.setParent(rightChild);
+	}
+
+	private void rightRotate(Node parentNode){
+		Node leftChild = parentNode.getLeft();
+
+		leftChild.setParent(parentNode.getParent());
+		if (parentNode.isLeftChild())
+			parentNode.getParent().setLeft(leftChild);
+		else
+			parentNode.getParent().setRight(leftChild);
+
+		parentNode.setLeft(leftChild.getRight());
+		parentNode.getLeft().setParent(parentNode);
+
+		leftChild.setRight(parentNode);
+		parentNode.setParent(leftChild);
+	}
+
 	private void replaceNode(Node oldNode, Node newNode){
-		if (!oldNode.isLeftChild()) {
-			oldNode.getParent().setRight(newNode);
+		if (oldNode.isLeftChild()) {
+			oldNode.getParent().setLeft(newNode);
 			if (newNode != nil)
 				newNode.setParent(oldNode.getParent());
 		}
 		else{
-			oldNode.getParent().setLeft(newNode);
+			oldNode.getParent().setRight(newNode);
 			if (newNode != nil)
 				newNode.setParent(oldNode.getParent());
 		}
@@ -316,7 +361,7 @@ public class RedBlackTree {
 	private Node minValue(Node node) {
 		Node current = node;
 		// Loop down to find the leftmost leaf
-		while (current.getLeft() != null) {
+		while (current.getLeft() != nil) {
 			current = current.getLeft();
 		}
 		return current;

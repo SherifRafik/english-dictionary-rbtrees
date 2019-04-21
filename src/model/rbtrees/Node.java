@@ -1,4 +1,4 @@
-package rbtrees;
+package model.rbtrees;
 
 public class Node {
 
@@ -12,7 +12,7 @@ public class Node {
         BLACK
     }
     
-	public Node(String key) {
+	Node(String key) {
 		this.key = key;
 		this.left = null;
 		this.right = null;
@@ -20,19 +20,19 @@ public class Node {
 		doubleBlack = false;
 	}
 
-	public Node getUncle() {
-		if (parent.getParent().getLeft() == parent)
+	/*public Node getUncle() {
+		if (parent.isLeftChild())
 			return parent.getParent().getRight();
 		return parent.getRight().getLeft();
+	}*/
+
+	Node getSibling() {
+    	if (this.isLeftChild())
+    		return parent.getRight();
+		return parent.getLeft();
 	}
 
-	public Node getSibling() {
-		if (this == parent.getRight())
-			return parent.getLeft();
-		return parent.getRight();
-	}
-
-	public boolean isLeftChild(){
+	boolean isLeftChild(){
 		return this == parent.getLeft();
 	}
 
@@ -40,23 +40,23 @@ public class Node {
 			return key;
 		}
 
-	public void setKey(String data) {
+	void setKey(String data) {
 			this.key = data;
 		}
 		
-	public Color getColor() {
+	Color getColor() {
 		return color;
 	}
 
-	public void setColor(Color color) {
+	void setColor(Color color) {
 		this.color = color;
 	}
 
 	public Node getLeft() {
-			return left;
-		}
+		return left;
+    }
 		
-	public void setLeft(Node left) {
+	void setLeft(Node left) {
 			this.left = left;
 		}
 		
@@ -64,23 +64,23 @@ public class Node {
 			return right;
 		}
 		
-	public void setRight(Node right) {
+	void setRight(Node right) {
 			this.right = right;
 		}
 		
-	public Node getParent() {
+	Node getParent() {
 			return parent;
 		}
 		
-	public void setParent(Node parent) {
+	void setParent(Node parent) {
 			this.parent = parent;
 		}
 
-	public boolean isDoubleBlack() {
+	boolean isDoubleBlack() {
 		return doubleBlack;
 	}
 
-	public void setDoubleBlack(boolean doubleBlack) {
+	void setDoubleBlack(boolean doubleBlack) {
 		this.doubleBlack = doubleBlack;
 	}
 }
