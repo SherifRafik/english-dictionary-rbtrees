@@ -3,11 +3,13 @@ package rbtrees;
 public class RedBlackTree {
 
 	private Node root;
-	private Node nil = new Node("nil");;
+	private Node nil = new Node("nil");
+	private int size;
 
 	public RedBlackTree() {
         nil.setColor(Node.Color.BLACK);
 		this.root= nil;
+		size = 0;
 	}
 
 	public RedBlackTree(String data) {
@@ -17,6 +19,7 @@ public class RedBlackTree {
 		root.setLeft(nil);
 		root.setRight(nil);
 		root.setParent(nil);
+		size = 0;
 	}
 
 	/*
@@ -73,7 +76,7 @@ public class RedBlackTree {
 			temp.setRight(newNode);
 		
 		insertFixup(newNode);
-
+		this.size++;
 		return true;
 	}
 
@@ -348,7 +351,10 @@ public class RedBlackTree {
 	public Node getNil() {
 		return nil;
 	}
-	
+
+	public int getSize() {
+		return size;
+	}
 	
 
 }

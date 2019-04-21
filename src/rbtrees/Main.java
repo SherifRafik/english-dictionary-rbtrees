@@ -8,17 +8,16 @@ public class Main {
         RedBlackTree tree = new RedBlackTree();
         File fr = new File();
         fr.readFile(tree);
-        System.out.println(tree.getRoot().getKey());
-        System.out.println(tree.getRoot().getLeft().getKey());
-        System.out.println(tree.getRoot().getRight().getKey());
-        System.out.println(tree.insert("Sherif"));
-        System.out.println(tree.insert("Mohamad"));
-        System.out.println(tree.insert("Salem"));
-
+        System.out.println(tree.getSize());
+        System.out.println(tree.getHeight());
         fr.writeToFile(tree);
 	}
 
 }
 
-// DONE: Search in RB tree , Insert in RB tree, get RB tree height , read from a file into the tree
-// TODO: Deletion in red black trees , write from tree to file
+/*
+ *  DONE: Search in RB tree , Insert in RB tree, get RB tree height, get RB tree size ,
+ *  read from a file into the tree , write from tree to file 
+ */
+							
+// TODO: Deletion in red black trees 
