@@ -7,11 +7,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ReadFile {
+public class File {
 	
     private String filePath;
     
-    public ReadFile() {
+    public File() {
         filePath = "src/resources/dictionary.txt";
     }
 	
@@ -58,9 +58,6 @@ public class ReadFile {
 			writeToFile(bufferedWriter , tree, node.getRight());
 		}
 	}
-	
 
 
-	
-	
 }

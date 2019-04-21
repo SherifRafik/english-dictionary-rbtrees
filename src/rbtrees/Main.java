@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
         
         RedBlackTree tree = new RedBlackTree();
-        ReadFile fr = new ReadFile();
+        File fr = new File();
         fr.readFile(tree);
         System.out.println(tree.getRoot().getKey());
         System.out.println(tree.getRoot().getLeft().getKey());
