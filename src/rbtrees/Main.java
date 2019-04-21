@@ -12,6 +12,9 @@ public class Main {
         System.out.println(tree.getRoot().getLeft().getKey());
         System.out.println(tree.getRoot().getRight().getKey());
         System.out.println(tree.insert("Sherif"));
+        System.out.println(tree.insert("Mohamad"));
+        System.out.println(tree.insert("Salem"));
+
         fr.writeToFile(tree);
 	}
 
