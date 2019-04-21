@@ -327,11 +327,17 @@ public class RedBlackTree {
         }
     }
 	
-	public int getHeight(Node node) {
+	public int getHeight(){
+		return calculateHeight(this.root);
+	}
+	
+	private int calculateHeight(Node node) {
 		if(node == nil)
 			return 0;
-		int leftSubtreeHeight = getHeight(node.getLeft());
-		int rightSubtreeHeight = getHeight(node.getRight());        
+		// Calculate the height of each subtree
+		int leftSubtreeHeight = calculateHeight(node.getLeft());
+		int rightSubtreeHeight = calculateHeight(node.getRight());
+		// user the larger one , +1  --> root
         return leftSubtreeHeight > rightSubtreeHeight ? leftSubtreeHeight + 1 : rightSubtreeHeight + 1;
 	}
     
