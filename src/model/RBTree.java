@@ -265,7 +265,7 @@ public class RBTree {
 
 
     private void replaceNode(RBNode oldNode, RBNode newNode){
-        if (oldNode.getParent().getRight() == oldNode) {
+        if (!oldNode.isLeftChild()) {
             oldNode.getParent().setRight(newNode);
             newNode.setParent(oldNode.getParent());
         }

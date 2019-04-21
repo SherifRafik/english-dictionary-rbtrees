@@ -16,14 +16,16 @@ public class Main {
         Node test = tree.search(40, tree.getRoot());
         System.out.println(tree.getRoot().getKey());*/
         
-        FileReader fr = new FileReader();
+        /*FileReader fr = new FileReader();
         fr.readFile();
         ArrayList<String> list = (ArrayList<String>) fr.getDictionaryArray();
-        RedBlackTree2 tree = new RedBlackTree2(list.get(0));
+        RedBlackTree tree = new RedBlackTree(list.get(0));
         for( int i = 1 ; i < fr.getDictionaryArray().size() ; i++) {
         	String element = fr.getDictionaryArray().get(i);
         	tree.insert(element);
-        }
+        }*/
+
+
 	}
 
 }
