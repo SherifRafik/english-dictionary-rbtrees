@@ -326,6 +326,14 @@ public class RedBlackTree {
             traverseInorder(rootNode.getRight());
         }
     }
+	
+	public int getHeight(Node node) {
+		if(node == nil)
+			return 0;
+		int leftSubtreeHeight = getHeight(node.getLeft());
+		int rightSubtreeHeight = getHeight(node.getRight());        
+        return leftSubtreeHeight > rightSubtreeHeight ? leftSubtreeHeight + 1 : rightSubtreeHeight + 1;
+	}
     
 	public Node getRoot() {
 		return root;

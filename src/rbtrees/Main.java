@@ -25,6 +25,7 @@ public class Main {
         System.out.println(tree.getRoot().getKey());
         System.out.println(tree.getRoot().getLeft().getKey());
         System.out.println(tree.getRoot().getRight().getKey());
+        System.out.println(tree.getHeight(tree.getRoot()));
 	}
 
 }

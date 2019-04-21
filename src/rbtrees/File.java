@@ -20,6 +20,15 @@ public class File {
 		dictionaryArray = Files.readAllLines(Paths.get(filePath));
         System.out.println("Words are inserted into the ArrayList , ArrayList Size = " + dictionaryArray.size());
 	}
+	
+	
+	public void writeInFile() {
+		
+	}
+	
+	public void writeTreeInFile() {
+		
+	}
 
 	public List<String> getDictionaryArray() {
 		return dictionaryArray;
