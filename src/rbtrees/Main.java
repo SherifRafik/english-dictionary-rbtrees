@@ -1,12 +1,10 @@
 package rbtrees;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-       /* RedBlackTree tree = new RedBlackTree(41);
+        /*RedBlackTree tree = new RedBlackTree(41);
         tree.insert(38);
         tree.insert(31);
         tree.insert(12);
@@ -16,16 +14,17 @@ public class Main {
         Node test = tree.search(40, tree.getRoot());
         System.out.println(tree.getRoot().getKey());*/
         
-        /*FileReader fr = new FileReader();
+        File fr = new File();
         fr.readFile();
-        ArrayList<String> list = (ArrayList<String>) fr.getDictionaryArray();
-        RedBlackTree tree = new RedBlackTree(list.get(0));
-        for( int i = 1 ; i < fr.getDictionaryArray().size() ; i++) {
+        //ArrayList<String> list = (ArrayList<String>) fr.getDictionaryArray();
+        RedBlackTree tree = new RedBlackTree();
+        for( int i = 0 ; i < fr.getDictionaryArray().size() ; i++) {
         	String element = fr.getDictionaryArray().get(i);
         	tree.insert(element);
-        }*/
-
-
+        }
+        System.out.println(tree.getRoot().getKey());
+        System.out.println(tree.getRoot().getLeft().getKey());
+        System.out.println(tree.getRoot().getRight().getKey());
 	}
 
 }

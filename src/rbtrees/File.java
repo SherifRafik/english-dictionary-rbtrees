@@ -6,12 +6,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileReader {
+public class File {
 	
     private List<String> dictionaryArray;
     private String filePath;
     
-    public FileReader() {
+    public File() {
     	dictionaryArray = new ArrayList<String>();
         filePath = "src/resources/dictionary.txt";
     }

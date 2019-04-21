@@ -3,15 +3,20 @@ package rbtrees;
 public class Node {
 
 	private String key;
-	private int color; // 0 - Red / 1 - Black
+	private Color color;
 	private Node left, right, parent;
 	private boolean doubleBlack;
-
+	
+    public enum Color {
+        RED,
+        BLACK
+    }
+    
 	public Node(String key) {
 		this.key = key;
 		this.left = null;
 		this.right = null;
-		color = 0;
+		color = Color.RED;
 		doubleBlack = false;
 	}
 
@@ -38,15 +43,15 @@ public class Node {
 	public void setKey(String data) {
 			this.key = data;
 		}
+		
+	public Color getColor() {
+		return color;
+	}
 
-	public int getColor() {
-			return color;
-		}
-		
-	public void setColor(int color) {
-			this.color = color;
-		}
-		
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
 	public Node getLeft() {
 			return left;
 		}
