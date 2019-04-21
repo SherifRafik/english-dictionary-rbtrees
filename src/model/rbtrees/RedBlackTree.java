@@ -126,7 +126,7 @@ public class RedBlackTree {
 		}
 		this.root.setColor(Node.Color.BLACK);
 	}
-	
+
 	private void rotateLeft(Node parentNode){
         Node childNode = nil;
         if(parentNode.getRight() != nil)
@@ -246,11 +246,11 @@ public class RedBlackTree {
 				if (sibling.isLeftChild()) {
 					// left case
 					// right rotate the parent
-					rightRotate(node.getParent());
+					rotateRight(node.getParent());
 				} else {
 					// right case
 					// left rotate the parent
-					leftRotate(node.getParent());
+					rotateLeft(node.getParent());
 				}
 				node.setDoubleBlack(false);
 			}
@@ -274,57 +274,25 @@ public class RedBlackTree {
 				if (sibling.isLeftChild()){
 					if (sibling.getLeft().getColor() == Node.Color.RED){		// left left
 						sibling.getLeft().setColor(Node.Color.BLACK);
-						rightRotate(node.getParent());
+						rotateRight(node.getParent());
 					} else {													// left right
 						sibling.getRight().setColor(Node.Color.BLACK);
-						leftRotate(sibling);
-						rightRotate(node.getParent());
+						rotateLeft(sibling);
+						rotateRight(node.getParent());
 					}
 				} else {
 					if (sibling.getRight().getColor() == Node.Color.RED){		// right right
 						sibling.getRight().setColor(Node.Color.BLACK);
-						leftRotate(node.getParent());
+						rotateLeft(node.getParent());
 					} else {													// right left
 						sibling.getLeft().setColor(Node.Color.BLACK);
-						rightRotate(sibling);
-						leftRotate(node.getParent());
+						rotateRight(sibling);
+						rotateLeft(node.getParent());
 					}
 				}
 				node.setDoubleBlack(false);
 			}
 		}
-	}
-
-	private void leftRotate(Node parentNode){
-		Node rightChild = parentNode.getRight();
-
-		rightChild.setParent(parentNode.getParent());
-		if (parentNode.isLeftChild())
-			parentNode.getParent().setLeft(rightChild);
-		else
-			parentNode.getParent().setRight(rightChild);
-
-		parentNode.setRight(rightChild.getLeft());
-		parentNode.getRight().setParent(parentNode);
-
-		rightChild.setLeft(parentNode);
-		parentNode.setParent(rightChild);
-	}
-
-	private void rightRotate(Node parentNode){
-		Node leftChild = parentNode.getLeft();
-
-		leftChild.setParent(parentNode.getParent());
-		if (parentNode.isLeftChild())
-			parentNode.getParent().setLeft(leftChild);
-		else
-			parentNode.getParent().setRight(leftChild);
-
-		parentNode.setLeft(leftChild.getRight());
-		parentNode.getLeft().setParent(parentNode);
-
-		leftChild.setRight(parentNode);
-		parentNode.setParent(leftChild);
 	}
 
 	private void replaceNode(Node oldNode, Node newNode){
