@@ -32,7 +32,6 @@ public class ReadFile {
 		}
 	}
 	
-	
 	public void writeToFile(RedBlackTree tree) {
 		try {
 			FileWriter fileWriter = new FileWriter(filePath);
@@ -45,7 +44,9 @@ public class ReadFile {
 			e.printStackTrace();
 		}	
 	}
+	
 	// Need this function to avoid creating new FileWriter and BufferedWriter in recusrion
+	// In-order Traversal of rb tree
 	private void writeToFile(BufferedWriter bufferedWriter , RedBlackTree tree , Node node) {
 		if(node != tree.getNil()) {
 			writeToFile(bufferedWriter , tree , node.getLeft());
