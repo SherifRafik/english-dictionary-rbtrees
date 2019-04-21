@@ -337,12 +337,18 @@ public class RedBlackTree {
 		// Calculate the height of each subtree
 		int leftSubtreeHeight = calculateHeight(node.getLeft());
 		int rightSubtreeHeight = calculateHeight(node.getRight());
-		// user the larger one , +1  --> root
+		// take the larger one , +1  --> root
         return leftSubtreeHeight > rightSubtreeHeight ? leftSubtreeHeight + 1 : rightSubtreeHeight + 1;
 	}
     
 	public Node getRoot() {
 		return root;
 	}
+
+	public Node getNil() {
+		return nil;
+	}
+	
+	
 
 }

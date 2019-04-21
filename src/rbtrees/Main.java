@@ -5,20 +5,17 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
         
-        File fr = new File();
-        fr.readFile();
         RedBlackTree tree = new RedBlackTree();
-        for( int i = 0 ; i < fr.getDictionaryArray().size() ; i++) {
-        	String element = fr.getDictionaryArray().get(i);
-        	tree.insert(element);
-        }
+        ReadFile fr = new ReadFile();
+        fr.readFile(tree);
         System.out.println(tree.getRoot().getKey());
         System.out.println(tree.getRoot().getLeft().getKey());
         System.out.println(tree.getRoot().getRight().getKey());
-        System.out.println(tree.getHeight());
+        System.out.println(tree.insert("Sherif"));
+        fr.writeToFile(tree);
 	}
 
 }
 
-// DONE: Search in RB tree , Insert in RB tree, get RB tree height , read from a file
-// TODO: Deletion in red black trees , write from file to tree
+// DONE: Search in RB tree , Insert in RB tree, get RB tree height , read from a file into the tree
+// TODO: Deletion in red black trees , write from tree to file
