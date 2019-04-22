@@ -8,11 +8,14 @@ public class Test {
 	public static void main(String[] args) {
         
         RedBlackTree tree = new RedBlackTree();
-        File fr = new File("test.txt");
+        File fr = new File("dictionary.txt");
         fr.readFile(tree);
         System.out.println(tree.getSize());
         System.out.println(tree.getHeight());
-        fr.writeToFile(tree);
+        System.out.println(tree.getRoot().getKey());
+        System.out.println(tree.getBlackHeight(tree.getRoot()));
+
+        /*fr.writeToFile(tree);
         tree.traverseInorder(tree.getRoot());
         System.out.println("deletion of Dragon is "+tree.delete("Dragon"));
 
@@ -28,6 +31,7 @@ public class Test {
         System.out.println("ant is " + tree.search("ant"));
         System.out.println("jilly is " + tree.search("jilly"));
         System.out.println("gilly is " + tree.search("gilly"));
+        */
 	}
 
 }

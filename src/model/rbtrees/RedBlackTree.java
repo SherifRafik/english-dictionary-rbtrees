@@ -356,7 +356,16 @@ public class RedBlackTree {
 		// take the larger one , +1  --> root
         return leftSubtreeHeight > rightSubtreeHeight ? leftSubtreeHeight + 1 : rightSubtreeHeight + 1;
 	}
-    
+
+	public int getBlackHeight(Node node){
+		if (node.getKey().compareToIgnoreCase("nil") == 0)
+			return 0;
+		else if (node.getColor() == Node.Color.BLACK)
+			return 1 + getBlackHeight(node.getLeft());
+		else
+			return getBlackHeight(node.getLeft());
+	}
+
 	public Node getRoot() {
 		return root;
 	}
