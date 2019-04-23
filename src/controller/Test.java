@@ -10,6 +10,8 @@ public class Test {
         RedBlackTree tree = new RedBlackTree();
         File fr = new File("src/resources/dictionary.txt");
         fr.readFile(tree);
+
+        // testing dictionary attributes
         System.out.println(tree.getSize());
         System.out.println(tree.getHeight());
         System.out.println(tree.getBlackHeight(tree.getRoot()));
