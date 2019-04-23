@@ -1,18 +1,19 @@
 package view;
 
 import controller.Controller;
-
-import javafx.geometry.Insets;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class Dictionary {
@@ -20,23 +21,23 @@ public class Dictionary {
 	Controller controller = new Controller();
 	FileChooser fileChooser;
 
-	Stage window;
-	BorderPane layout;
-	MenuItem loadFile;
-	MenuItem saveFile;
-	MenuItem saveAsFile;
-	Label msgLabel;
-	Label sizeLabel;
-	Label heightLabel;
-	Button searchButton;
-	Button insertButton;
-	Button deleteButton;
-	TextField input;
+	public Stage window;
+//	public BorderPane layout;
+	public MenuItem loadFile;
+	public MenuItem saveFile;
+	public MenuItem saveAsFile;
+	public Label msgLabel;
+	public Label sizeLabel;
+	public Label heightLabel;
+	public Button searchButton;
+	public Button insertButton;
+	public Button deleteButton;
+	public TextField input;
 
 	private int size;
 	private int height;
 	String path;
-
+	
 	//  @Override
 	//  public void start(Stage primaryStage) throws Exception {
 	//  
@@ -60,17 +61,33 @@ public class Dictionary {
 		window.setTitle("English Dictionary");
 		window.setResizable(false);
 
-		layout = new BorderPane();
-		addFileMenu();
-		addBody();
+		try {
+			Path currentRelativePath = Paths.get("");
+			String path = currentRelativePath.toAbsolutePath().toString() + "/src/view/Dictionary.fxml";
 
-		Scene scene = new Scene(layout, 400, 300);
-		window.setScene(scene);
-		window.show();
+			Parent root = FXMLLoader.load(new File(path).toURI().toURL());
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add("view/darkTheme.css");
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("English Dictionary");
+			primaryStage.show();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
+//		layout = new BorderPane();
+//		addFileMenu();
+//		addBody();
+//
+//		Scene scene = new Scene(layout, 400, 300);
+//		window.setScene(scene);
+//		window.show();
+//	}
 
 	private void buttonsVisibility(boolean value) {
 
+		input.setDisable(!value);
 		searchButton.setDisable(!value);
 		insertButton.setDisable(!value);
 		deleteButton.setDisable(!value);
@@ -82,11 +99,11 @@ public class Dictionary {
 
 		size = controller.getSize();
 		height = controller.getHeight();
-		sizeLabel.setText("Tree Size: " + Integer.toString(size));
-		heightLabel.setText("Tree Height: " + Integer.toString(height));
+		sizeLabel.setText(Integer.toString(size));
+		heightLabel.setText(Integer.toString(height));
 	}
 
-	private void load() {
+	public void load() {
 
 		fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
@@ -97,18 +114,20 @@ public class Dictionary {
 			controller.load(path);
 			buttonsVisibility(true);
 			refresh();
+			msgLabel.setTextFill(Color.WHITE);
 			msgLabel.setText("File loaded successfuly.");
 		}
 	}
 
-	private void save() {
+	public void save() {
 
 		controller.save();
 		refresh();
+		msgLabel.setTextFill(Color.WHITE);
 		msgLabel.setText("File saved.");
 	}
 
-	private void saveAs() {
+	public void saveAs() {
 
 		fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
@@ -118,107 +137,120 @@ public class Dictionary {
 			path = file.getAbsolutePath();
 			controller.saveAs(path);
 			refresh();
-			msgLabel.setText("File saved.");
+			msgLabel.setTextFill(Color.WHITE);
+			msgLabel.setText("File saved to destination.");
 		}
 	}
 
-	private void addFileMenu() {
+//	private void addFileMenu() {
+//
+//		//File menu
+//		Menu fileMenu = new Menu("File");
+//		loadFile = new MenuItem("Load...");
+//		loadFile.setOnAction(e -> load());
+//		saveFile = new MenuItem("Save");
+//		saveFile.setOnAction(e -> save());
+//		saveAsFile = new MenuItem("Save as...");
+//		saveAsFile.setOnAction(e -> saveAs());
+//		fileMenu.getItems().addAll(loadFile, new SeparatorMenuItem(), saveFile, saveAsFile);
+//
+//		//Main menu bar
+//		MenuBar menuBar = new MenuBar();
+//		menuBar.getMenus().add(fileMenu);
+//
+//		layout.setTop(menuBar);
+//	}
 
-		//File menu
-		Menu fileMenu = new Menu("File");
-		loadFile = new MenuItem("Load...");
-		loadFile.setOnAction(e -> load());
-		saveFile = new MenuItem("Save");
-		saveFile.setOnAction(e -> save());
-		saveAsFile = new MenuItem("Save as...");
-		saveAsFile.setOnAction(e -> saveAs());
-		fileMenu.getItems().addAll(loadFile, new SeparatorMenuItem(), saveFile, saveAsFile);
+	public void search() {
 
-		//Main menu bar
-		MenuBar menuBar = new MenuBar();
-		menuBar.getMenus().add(fileMenu);
-
-		layout.setTop(menuBar);
-	}
-
-	private void search(String value) {
-
+		String value = input.getText();
 		if(value.replaceAll("\\s","").length() != 0) {
 			boolean res = controller.search(value);
-			if(res)
+			if(res) {
+				msgLabel.setTextFill(Color.LIGHTGREEN);
 				msgLabel.setText("Word found.");
-			else
+			} else {
+				msgLabel.setTextFill(Color.RED);
 				msgLabel.setText("Word not found.");
+			}
 			refresh();
 		}
 	}
 
-	private void insert(String value) {
+	public void insert() {
 
+		String value = input.getText();
 		if(value.replaceAll("\\s","").length() != 0) {
 			boolean res = controller.insert(value);
-			if(res)
+			if(res) {
+				msgLabel.setTextFill(Color.LIGHTGREEN);
 				msgLabel.setText(value + " has been inserted.");
-			else
+			} else {
+				msgLabel.setTextFill(Color.RED);
 				msgLabel.setText(value + " already exists.");
+			}
 			refresh();
 		}
 	}
 
-	private void delete(String value) {
+	public void delete() {
 
+		String value = input.getText();
 		if(value.replaceAll("\\s","").length() != 0) {
 			boolean res = controller.delete(value);
-			if(res)
+			if(res) {
+				msgLabel.setTextFill(Color.LIGHTGREEN);
 				msgLabel.setText(value + " has been deleted.");
-			else
+			} else {
+				msgLabel.setTextFill(Color.RED);
 				msgLabel.setText(value + " does not exist.");
+			}
 			refresh();
 		}
 	}
 
-	private void addBody() {
-
-		VBox infoBox = new VBox(10);
-		infoBox.setPadding(new Insets(10, 10, 10, 10));
-		//		infoGrid.setVgap(8);
-		//		infoGrid.setHgap(10);
-
-		// Tree Size Label
-		sizeLabel = new Label("Tree Size: " + size);
-		infoBox.getChildren().add(sizeLabel);
-
-		// Tree Height Label
-		heightLabel = new Label("Tree Height: " + height);
-		infoBox.getChildren().add(heightLabel);
-
-		// Input Text Field
-		input = new TextField();
-		infoBox.getChildren().add(input);
-
-		// Search Button
-		searchButton = new Button("Search");
-		searchButton.setOnAction(e -> search(input.getText()));
-		infoBox.getChildren().add(searchButton);
-
-		// Insert Button
-		insertButton = new Button("Insert");
-		insertButton.setOnAction(e -> insert(input.getText()));
-		infoBox.getChildren().add(insertButton);
-
-		// Delete Button
-		deleteButton = new Button("Delete");
-		deleteButton.setOnAction(e -> delete(input.getText()));
-		infoBox.getChildren().add(deleteButton);
-
-		// Message Box
-		msgLabel = new Label("Message Box");
-		msgLabel.setPrefSize(400, 50);
-		msgLabel.setStyle("-fx-border-color: grey;");
-		infoBox.getChildren().add(msgLabel);
-
-		buttonsVisibility(false);
-
-		layout.setCenter(infoBox);
-	}
+//	private void addBody() {
+//
+//		VBox infoBox = new VBox(10);
+//		infoBox.setPadding(new Insets(10, 10, 10, 10));
+//		//		infoGrid.setVgap(8);
+//		//		infoGrid.setHgap(10);
+//
+//		// Tree Size Label
+//		sizeLabel = new Label("Tree Size: " + size);
+//		infoBox.getChildren().add(sizeLabel);
+//
+//		// Tree Height Label
+//		heightLabel = new Label("Tree Height: " + height);
+//		infoBox.getChildren().add(heightLabel);
+//
+//		// Input Text Field
+//		input = new TextField();
+//		infoBox.getChildren().add(input);
+//
+//		// Search Button
+//		searchButton = new Button("Search");
+//		searchButton.setOnAction(e -> search());
+//		infoBox.getChildren().add(searchButton);
+//
+//		// Insert Button
+//		insertButton = new Button("Insert");
+//		insertButton.setOnAction(e -> insert());
+//		infoBox.getChildren().add(insertButton);
+//
+//		// Delete Button
+//		deleteButton = new Button("Delete");
+//		deleteButton.setOnAction(e -> delete());
+//		infoBox.getChildren().add(deleteButton);
+//
+//		// Message Box
+//		msgLabel = new Label("Message Box");
+//		msgLabel.setPrefSize(400, 50);
+//		msgLabel.setStyle("-fx-border-color: grey;");
+//		infoBox.getChildren().add(msgLabel);
+//
+//		buttonsVisibility(false);
+//
+//		layout.setCenter(infoBox);
+//	}
 }
