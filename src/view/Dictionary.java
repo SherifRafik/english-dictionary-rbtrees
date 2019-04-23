@@ -37,7 +37,7 @@ public class Dictionary {
 	private int size;
 	private int height;
 	String path;
-
+	
 	//  @Override
 	//  public void start(Stage primaryStage) throws Exception {
 	//  

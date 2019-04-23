@@ -12,5 +12,4 @@ lol
 magic
 ninja
 onion
-salem
 zebra
