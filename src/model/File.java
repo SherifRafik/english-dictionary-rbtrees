@@ -14,7 +14,8 @@ public class File {
     private String filePath;
     
     public File(String path) {
-        filePath = "src/resources/" + path;
+//        filePath = "src/resources/" + path;
+        filePath = path;
     }
 	
 	public void readFile(RedBlackTree tree) {
