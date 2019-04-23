@@ -174,11 +174,13 @@ public class RedBlackTree {
 		if (node == nil)
 			return false;
 		performDelete(node);
+		// Decrement the size of the tree
+		size--;	
 		return true;
 	}
 
-	private void performDelete(Node node){
-
+	private void performDelete(Node node){	
+		
 		// If the node has 2 children
 		// Copy its inorder successor in it
 		// Then recursively delete the successor

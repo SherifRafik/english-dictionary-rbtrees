@@ -1,5 +1,4 @@
-/controller/
-/model/
-/rbtrees/
-/resources/
 /view/
+/controller/
+/resources/
+/model/
