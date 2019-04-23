@@ -15,5 +15,4 @@ public class Test {
 
         System.out.println(tree.getSize());
 	}
-
 }
