@@ -1,29 +1,24 @@
 package controller;
 
+import view.Dictionary;
+
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Main extends Application {
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Path currentRelativePath = Paths.get("");
-        String path = currentRelativePath.toAbsolutePath().toString() + "\\src\\view\\Dictionary.fxml";
-        Parent root = FXMLLoader.load(new File(path).toURI().toURL());
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
-    }
+	
+	private Dictionary dictionary = new Dictionary();;
 
 
     public static void main(String[] args) {
-        launch(args);
+    	
+    	launch(args);
     }
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		
+		dictionary.initialize(primaryStage);
+	}
 }

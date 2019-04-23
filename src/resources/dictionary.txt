@@ -1558,6 +1558,7 @@ local
 locate
 location
 lock
+lol
 long
 long-term
 look
