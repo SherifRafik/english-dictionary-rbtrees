@@ -1,9 +1,8 @@
 package controller;
 
-import view.Dictionary;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
+import view.Dictionary;
 
 
 public class Main extends Application {
@@ -18,7 +17,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+
 		dictionary.initialize(primaryStage);
 	}
 }
