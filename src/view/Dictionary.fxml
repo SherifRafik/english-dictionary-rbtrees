@@ -63,7 +63,7 @@
    <bottom>
       <VBox prefHeight="85.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="TOP_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="340.0" text="System Message." textFill="GREY" underline="true" VBox.vgrow="NEVER">
+            <Label alignment="TOP_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="340.0" text="System Message." textFill="GREY" underline="true" VBox.vgrow="NEVER">
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
