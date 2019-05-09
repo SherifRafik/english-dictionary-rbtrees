@@ -7,3 +7,5 @@ out/production/EnglishDictionary/view/Dictionary.class
 *.class
 .idea/workspace.xml
 .idea/workspace.xml
+"bin/" 
+"out/" 
