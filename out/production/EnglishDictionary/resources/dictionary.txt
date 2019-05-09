@@ -831,7 +831,6 @@ due
 during
 dust
 duty
-e-mail
 each
 eager
 ear
@@ -877,6 +876,7 @@ eliminate
 elite
 else
 elsewhere
+e-mail
 embrace
 emerge
 emergency
@@ -1558,7 +1558,6 @@ local
 locate
 location
 lock
-lol
 long
 long-term
 look
@@ -1675,7 +1674,6 @@ model
 moderate
 modern
 modest
-Mohamad
 mom
 moment
 money
@@ -1719,7 +1717,6 @@ my
 myself
 mystery
 myth
-n't
 naked
 name
 narrative
@@ -1778,6 +1775,7 @@ notion
 novel
 now
 nowhere
+n't
 nuclear
 number
 numerous
@@ -2298,7 +2296,6 @@ sake
 salad
 salary
 sale
-Salem
 sales
 salt
 same
@@ -2387,7 +2384,6 @@ sheet
 shelf
 shell
 shelter
-Sherif
 shift
 shine
 ship
