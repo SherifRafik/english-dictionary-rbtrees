@@ -38,22 +38,6 @@ public class Dictionary {
 	private int height;
 	String path;
 	
-	//  @Override
-	//  public void start(Stage primaryStage) throws Exception {
-	//  
-	//  	try {
-	//	        Path currentRelativePath = Paths.get("");
-	//	        String path = currentRelativePath.toAbsolutePath().toString() + "/src/view/Dictionary.fxml";
-	//	        
-	//	        Parent root = FXMLLoader.load(new File(path).toURI().toURL());
-	//			Scene scene = new Scene(root,400,400);
-	//			primaryStage.setScene(scene);
-	//	        primaryStage.setTitle("Hello World");
-	//	        primaryStage.show();
-	//  	} catch(Exception e) {
-	//			e.printStackTrace();
-	//		}
-	//  }
 
 	public void initialize(Stage primaryStage) throws Exception {
 		
@@ -76,14 +60,6 @@ public class Dictionary {
 			e.printStackTrace();
 		}
 	}
-//		layout = new BorderPane();
-//		addFileMenu();
-//		addBody();
-//
-//		Scene scene = new Scene(layout, 400, 300);
-//		window.setScene(scene);
-//		window.show();
-//	}
 
 	private void buttonsVisibility(boolean value) {
 
@@ -108,6 +84,8 @@ public class Dictionary {
 		fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         fileChooser.getExtensionFilters().add(extFilter);
+		String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/src/resources";
+		fileChooser.setInitialDirectory(new File(currentPath));
 		File file = fileChooser.showOpenDialog(window);
 		if(file != null) {
 			path = file.getAbsolutePath();
