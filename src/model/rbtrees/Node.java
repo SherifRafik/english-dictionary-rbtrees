@@ -6,12 +6,11 @@ public class Node {
 	private Color color;
 	private Node left, right, parent;
 	private boolean doubleBlack;
-	
-    public enum Color {
-        RED,
-        BLACK
-    }
-    
+
+	public enum Color {
+		RED, BLACK
+	}
+
 	Node(String key) {
 		this.key = key;
 		this.left = null;
@@ -20,30 +19,24 @@ public class Node {
 		doubleBlack = false;
 	}
 
-	/*public Node getUncle() {
-		if (parent.isLeftChild())
-			return parent.getParent().getRight();
-		return parent.getRight().getLeft();
-	}*/
-
 	Node getSibling() {
-    	if (this.isLeftChild())
-    		return parent.getRight();
+		if (this.isLeftChild())
+			return parent.getRight();
 		return parent.getLeft();
 	}
 
-	boolean isLeftChild(){
+	boolean isLeftChild() {
 		return this == parent.getLeft();
 	}
 
 	public String getKey() {
-			return key;
-		}
+		return key;
+	}
 
 	void setKey(String data) {
-			this.key = data;
-		}
-		
+		this.key = data;
+	}
+
 	Color getColor() {
 		return color;
 	}
@@ -54,27 +47,27 @@ public class Node {
 
 	public Node getLeft() {
 		return left;
-    }
-		
+	}
+
 	void setLeft(Node left) {
-			this.left = left;
-		}
-		
+		this.left = left;
+	}
+
 	public Node getRight() {
-			return right;
-		}
-		
+		return right;
+	}
+
 	void setRight(Node right) {
-			this.right = right;
-		}
-		
+		this.right = right;
+	}
+
 	Node getParent() {
-			return parent;
-		}
-		
+		return parent;
+	}
+
 	void setParent(Node parent) {
-			this.parent = parent;
-		}
+		this.parent = parent;
+	}
 
 	boolean isDoubleBlack() {
 		return doubleBlack;

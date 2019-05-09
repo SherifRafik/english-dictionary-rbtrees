@@ -15,14 +15,12 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
 public class Dictionary {
 
 	Controller controller = new Controller();
 	FileChooser fileChooser;
 
 	public Stage window;
-//	public BorderPane layout;
 	public MenuItem loadFile;
 	public MenuItem saveFile;
 	public MenuItem saveAsFile;
@@ -37,10 +35,9 @@ public class Dictionary {
 	private int size;
 	private int height;
 	String path;
-	
 
 	public void initialize(Stage primaryStage) throws Exception {
-		
+
 		window = primaryStage;
 		window.setTitle("English Dictionary");
 		window.setResizable(false);
@@ -55,8 +52,8 @@ public class Dictionary {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("English Dictionary");
 			primaryStage.show();
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -83,11 +80,11 @@ public class Dictionary {
 
 		fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(extFilter);
+		fileChooser.getExtensionFilters().add(extFilter);
 		String currentPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/src/resources";
 		fileChooser.setInitialDirectory(new File(currentPath));
 		File file = fileChooser.showOpenDialog(window);
-		if(file != null) {
+		if (file != null) {
 			path = file.getAbsolutePath();
 			controller.load(path);
 			buttonsVisibility(true);
@@ -109,9 +106,9 @@ public class Dictionary {
 
 		fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(extFilter);
+		fileChooser.getExtensionFilters().add(extFilter);
 		File file = fileChooser.showSaveDialog(window);
-		if(file != null) {
+		if (file != null) {
 			path = file.getAbsolutePath();
 			controller.saveAs(path);
 			refresh();
@@ -120,31 +117,12 @@ public class Dictionary {
 		}
 	}
 
-//	private void addFileMenu() {
-//
-//		//File menu
-//		Menu fileMenu = new Menu("File");
-//		loadFile = new MenuItem("Load...");
-//		loadFile.setOnAction(e -> load());
-//		saveFile = new MenuItem("Save");
-//		saveFile.setOnAction(e -> save());
-//		saveAsFile = new MenuItem("Save as...");
-//		saveAsFile.setOnAction(e -> saveAs());
-//		fileMenu.getItems().addAll(loadFile, new SeparatorMenuItem(), saveFile, saveAsFile);
-//
-//		//Main menu bar
-//		MenuBar menuBar = new MenuBar();
-//		menuBar.getMenus().add(fileMenu);
-//
-//		layout.setTop(menuBar);
-//	}
-
 	public void search() {
 
 		String value = input.getText();
-		if(value.replaceAll("\\s","").length() != 0) {
+		if (value.replaceAll("\\s", "").length() != 0) {
 			boolean res = controller.search(value);
-			if(res) {
+			if (res) {
 				msgLabel.setTextFill(Color.LIGHTGREEN);
 				msgLabel.setText("Word found.");
 			} else {
@@ -158,9 +136,9 @@ public class Dictionary {
 	public void insert() {
 
 		String value = input.getText();
-		if(value.replaceAll("\\s","").length() != 0) {
+		if (value.replaceAll("\\s", "").length() != 0) {
 			boolean res = controller.insert(value);
-			if(res) {
+			if (res) {
 				msgLabel.setTextFill(Color.LIGHTGREEN);
 				msgLabel.setText(value + " has been inserted.");
 			} else {
@@ -174,9 +152,9 @@ public class Dictionary {
 	public void delete() {
 
 		String value = input.getText();
-		if(value.replaceAll("\\s","").length() != 0) {
+		if (value.replaceAll("\\s", "").length() != 0) {
 			boolean res = controller.delete(value);
-			if(res) {
+			if (res) {
 				msgLabel.setTextFill(Color.LIGHTGREEN);
 				msgLabel.setText(value + " has been deleted.");
 			} else {
@@ -187,48 +165,4 @@ public class Dictionary {
 		}
 	}
 
-//	private void addBody() {
-//
-//		VBox infoBox = new VBox(10);
-//		infoBox.setPadding(new Insets(10, 10, 10, 10));
-//		//		infoGrid.setVgap(8);
-//		//		infoGrid.setHgap(10);
-//
-//		// Tree Size Label
-//		sizeLabel = new Label("Tree Size: " + size);
-//		infoBox.getChildren().add(sizeLabel);
-//
-//		// Tree Height Label
-//		heightLabel = new Label("Tree Height: " + height);
-//		infoBox.getChildren().add(heightLabel);
-//
-//		// Input Text Field
-//		input = new TextField();
-//		infoBox.getChildren().add(input);
-//
-//		// Search Button
-//		searchButton = new Button("Search");
-//		searchButton.setOnAction(e -> search());
-//		infoBox.getChildren().add(searchButton);
-//
-//		// Insert Button
-//		insertButton = new Button("Insert");
-//		insertButton.setOnAction(e -> insert());
-//		infoBox.getChildren().add(insertButton);
-//
-//		// Delete Button
-//		deleteButton = new Button("Delete");
-//		deleteButton.setOnAction(e -> delete());
-//		infoBox.getChildren().add(deleteButton);
-//
-//		// Message Box
-//		msgLabel = new Label("Message Box");
-//		msgLabel.setPrefSize(400, 50);
-//		msgLabel.setStyle("-fx-border-color: grey;");
-//		infoBox.getChildren().add(msgLabel);
-//
-//		buttonsVisibility(false);
-//
-//		layout.setCenter(infoBox);
-//	}
 }

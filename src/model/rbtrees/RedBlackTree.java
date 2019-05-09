@@ -7,47 +7,35 @@ public class RedBlackTree {
 	private int size;
 
 	public RedBlackTree() {
-        nil.setColor(Node.Color.BLACK);
-        nil.setParent(nil);
-        nil.setLeft(nil);
-        nil.setRight(nil);
-		this.root= nil;
-		size = 0;
-	}
-
-	/*public RedBlackTree(String data) {
 		nil.setColor(Node.Color.BLACK);
 		nil.setParent(nil);
 		nil.setLeft(nil);
 		nil.setRight(nil);
-		root = new Node(data);
-		root.setColor(Node.Color.BLACK);  //Root node is always black
-		root.setLeft(nil);
-		root.setRight(nil);
-		root.setParent(nil);
-		size = 1;
-	}*/
+		this.root = nil;
+		size = 0;
+	}
+
 
 	/*
 	 * Properties violated are 
-	 * 1 - Property 2 which requires the root to be black
+	 * 1 - Property 2 which requires the root to be black 
 	 * 2 - Property 4 which requires a red node to have 2 black children
 	 */
 
-	public boolean search(String key){
+	public boolean search(String key) {
 		return search(key, root) != nil;
 	}
 
-	private Node search(String data , Node node){
-		if(node == nil)
+	private Node search(String data, Node node) {
+		if (node == nil)
 			return nil;
-		if(node.getKey().equalsIgnoreCase(data))
+		if (node.getKey().equalsIgnoreCase(data))
 			return node;
-		else if(node.getKey().compareToIgnoreCase(data) > 0) {
-			if(node.getLeft() != nil)
+		else if (node.getKey().compareToIgnoreCase(data) > 0) {
+			if (node.getLeft() != nil)
 				return search(data, node.getLeft());
-		}else if(node.getKey().compareToIgnoreCase(data) < 0) {
-			if(node.getRight() != nil)
+		} else if (node.getKey().compareToIgnoreCase(data) < 0) {
+			if (node.getRight() != nil)
 				return search(data, node.getRight());
 		}
 		return nil;
@@ -55,32 +43,32 @@ public class RedBlackTree {
 
 	public boolean insert(String data) {
 		Node newNode = new Node(data);
-		newNode.setLeft(nil); 
+		newNode.setLeft(nil);
 		newNode.setRight(nil);
 		newNode.setParent(nil);
 
 		Node node = this.root;
 		Node temp = nil;
-		
-		while(node != nil) {
+
+		while (node != nil) {
 			temp = node; // Get leaf node
 			int compareTwoStrings = newNode.getKey().compareToIgnoreCase(node.getKey());
-			if(compareTwoStrings < 0)
+			if (compareTwoStrings < 0)
 				node = node.getLeft();
-			else if(compareTwoStrings > 0)
+			else if (compareTwoStrings > 0)
 				node = node.getRight();
 			else
 				return false;
 		}
 
 		newNode.setParent(temp);
-		if(temp == nil)
+		if (temp == nil)
 			this.root = newNode;
-		else if(newNode.getKey().compareToIgnoreCase(temp.getKey()) < 0)
+		else if (newNode.getKey().compareToIgnoreCase(temp.getKey()) < 0)
 			temp.setLeft(newNode);
 		else
 			temp.setRight(newNode);
-		
+
 		insertFixup(newNode);
 		this.size++;
 		return true;
@@ -88,16 +76,16 @@ public class RedBlackTree {
 
 	private void insertFixup(Node node) {
 		Node uncle;
-        while (node.getParent() != nil && node.getParent().getColor() == Node.Color.RED){
-        	if(node.getParent() == node.getParent().getParent().getLeft()) {
-        		uncle = node.getParent().getParent().getRight();
-				if(uncle != nil && uncle.getColor() == Node.Color.RED) {	// Case 1
+		while (node.getParent() != nil && node.getParent().getColor() == Node.Color.RED) {
+			if (node.getParent() == node.getParent().getParent().getLeft()) {
+				uncle = node.getParent().getParent().getRight();
+				if (uncle != nil && uncle.getColor() == Node.Color.RED) { // Case 1
 					node.getParent().setColor(Node.Color.BLACK);
 					uncle.setColor(Node.Color.BLACK);
 					node.getParent().getParent().setColor(Node.Color.RED);
 					node = node.getParent().getParent();
 				} else {
-					if(!node.isLeftChild()) {	//Double rotation needed
+					if (!node.isLeftChild()) { // Double rotation needed
 						node = node.getParent();
 						rotateLeft(node);
 					}
@@ -105,16 +93,15 @@ public class RedBlackTree {
 					node.getParent().getParent().setColor(Node.Color.RED);
 					rotateRight(node.getParent().getParent());
 				}
-			}
-			else {
+			} else {
 				uncle = node.getParent().getParent().getLeft();
-				if(uncle != nil && uncle.getColor() == Node.Color.RED) {	// Case 1
+				if (uncle != nil && uncle.getColor() == Node.Color.RED) { // Case 1
 					node.getParent().setColor(Node.Color.BLACK);
 					uncle.setColor(Node.Color.BLACK);
 					node.getParent().getParent().setColor(Node.Color.RED);
 					node = node.getParent().getParent();
 				} else {
-					if(node.isLeftChild()) {
+					if (node.isLeftChild()) {
 						node = node.getParent();
 						rotateRight(node);
 					}
@@ -122,52 +109,52 @@ public class RedBlackTree {
 					node.getParent().getParent().setColor(Node.Color.RED);
 					rotateLeft(node.getParent().getParent());
 				}
-			}	
+			}
 		}
 		this.root.setColor(Node.Color.BLACK);
 	}
 
-	private void rotateLeft(Node parentNode){
-        Node childNode = nil;
-        if(parentNode.getRight() != nil)
-            childNode = parentNode.getRight();
+	private void rotateLeft(Node parentNode) {
+		Node childNode = nil;
+		if (parentNode.getRight() != nil)
+			childNode = parentNode.getRight();
 
-        parentNode.setRight(childNode.getLeft());
-        if(childNode.getLeft() != nil)
-            childNode.getLeft().setParent(parentNode);
+		parentNode.setRight(childNode.getLeft());
+		if (childNode.getLeft() != nil)
+			childNode.getLeft().setParent(parentNode);
 
-        childNode.setParent(parentNode.getParent());
-        if(parentNode.getParent() == nil)
-            root = childNode;
-        else if (parentNode.isLeftChild())
-            parentNode.getParent().setLeft(childNode);
-        else
-        	parentNode.getParent().setRight(childNode);
+		childNode.setParent(parentNode.getParent());
+		if (parentNode.getParent() == nil)
+			root = childNode;
+		else if (parentNode.isLeftChild())
+			parentNode.getParent().setLeft(childNode);
+		else
+			parentNode.getParent().setRight(childNode);
 
-        childNode.setLeft(parentNode);
-        parentNode.setParent(childNode);
+		childNode.setLeft(parentNode);
+		parentNode.setParent(childNode);
 	}
-	 
-	private void rotateRight(Node parentNode){
-        Node childNode = nil;
-        if (parentNode.getLeft() != nil)
-            childNode = parentNode.getLeft();
 
-        parentNode.setLeft(childNode.getRight());
-        if(childNode.getRight() != nil)
-            childNode.getRight().setParent(parentNode);
+	private void rotateRight(Node parentNode) {
+		Node childNode = nil;
+		if (parentNode.getLeft() != nil)
+			childNode = parentNode.getLeft();
 
-        childNode.setParent(parentNode.getParent());
-        if(parentNode.getParent() == nil)
-            root = childNode;
-        else if(parentNode.isLeftChild())
-            parentNode.getParent().setLeft(childNode);
-        else
-        	parentNode.getParent().setRight(childNode);
+		parentNode.setLeft(childNode.getRight());
+		if (childNode.getRight() != nil)
+			childNode.getRight().setParent(parentNode);
 
-        childNode.setRight(parentNode);
-        parentNode.setParent(childNode);
-    }
+		childNode.setParent(parentNode.getParent());
+		if (parentNode.getParent() == nil)
+			root = childNode;
+		else if (parentNode.isLeftChild())
+			parentNode.getParent().setLeft(childNode);
+		else
+			parentNode.getParent().setRight(childNode);
+
+		childNode.setRight(parentNode);
+		parentNode.setParent(childNode);
+	}
 
 	public boolean delete(String value) {
 		Node node = getNode(value);
@@ -175,16 +162,16 @@ public class RedBlackTree {
 			return false;
 		performDelete(node);
 		// Decrement the size of the tree
-		size--;	
+		size--;
 		return true;
 	}
 
-	private void performDelete(Node node){	
-		
+	private void performDelete(Node node) {
+
 		// If the node has 2 children
 		// Copy its inorder successor in it
 		// Then recursively delete the successor
-		if (node.getLeft()!=nil && node.getRight()!=nil) {
+		if (node.getLeft() != nil && node.getRight() != nil) {
 			Node successor = inOrderSuccessor(node);
 			node.setKey(successor.getKey());
 			performDelete(successor);
@@ -202,16 +189,16 @@ public class RedBlackTree {
 
 		// If node is red
 		// Simple Case: either the node or its child is red
-		if (node.getColor() == Node.Color.RED){		// The node is red and its child is black
+		if (node.getColor() == Node.Color.RED) { // The node is red and its child is black
 			replaceNode(node, child);
 			return;
 		}
 
 		// If node is black
-		if (node.getColor() == Node.Color.BLACK){
+		if (node.getColor() == Node.Color.BLACK) {
 
 			// AGAIN The Simple Case
-			if (child.getColor() == Node.Color.RED){		// The node is black and its child is red
+			if (child.getColor() == Node.Color.RED) { // The node is black and its child is red
 				child.setColor(Node.Color.BLACK);
 				replaceNode(node, child);
 				return;
@@ -227,7 +214,7 @@ public class RedBlackTree {
 
 	private void fixDoubleBlack(Node node) {
 
-		if (node == root){
+		if (node == root) {
 			node.setDoubleBlack(false);
 			return;
 		}
@@ -241,8 +228,8 @@ public class RedBlackTree {
 		while (node.isDoubleBlack() && node != root) {
 
 			// Sibling is RED
-			if (sibling.getColor() == Node.Color.RED){
-				//perform rotations
+			if (sibling.getColor() == Node.Color.RED) {
+				// perform rotations
 				sibling.setColor(Node.Color.BLACK);
 				node.getParent().setColor(Node.Color.RED);
 				if (sibling.isLeftChild()) {
@@ -258,7 +245,8 @@ public class RedBlackTree {
 			}
 
 			// Sibling is black and both its children are black
-			else if (sibling.getLeft().getColor() == Node.Color.BLACK  &&  sibling.getRight().getColor() == Node.Color.BLACK){
+			else if (sibling.getLeft().getColor() == Node.Color.BLACK
+					&& sibling.getRight().getColor() == Node.Color.BLACK) {
 				sibling.setColor(Node.Color.RED);
 				if (node.getParent().getColor() == Node.Color.RED) {
 					node.getParent().setColor(Node.Color.BLACK);
@@ -273,20 +261,20 @@ public class RedBlackTree {
 
 			// Sibling is black and at least one of its children is red
 			else {
-				if (sibling.isLeftChild()){
-					if (sibling.getLeft().getColor() == Node.Color.RED){		// left left
+				if (sibling.isLeftChild()) {
+					if (sibling.getLeft().getColor() == Node.Color.RED) { // left left
 						sibling.getLeft().setColor(Node.Color.BLACK);
 						rotateRight(node.getParent());
-					} else {													// left right
+					} else { // left right
 						sibling.getRight().setColor(Node.Color.BLACK);
 						rotateLeft(sibling);
 						rotateRight(node.getParent());
 					}
 				} else {
-					if (sibling.getRight().getColor() == Node.Color.RED){		// right right
+					if (sibling.getRight().getColor() == Node.Color.RED) { // right right
 						sibling.getRight().setColor(Node.Color.BLACK);
 						rotateLeft(node.getParent());
-					} else {													// right left
+					} else { // right left
 						sibling.getLeft().setColor(Node.Color.BLACK);
 						rotateRight(sibling);
 						rotateLeft(node.getParent());
@@ -297,13 +285,12 @@ public class RedBlackTree {
 		}
 	}
 
-	private void replaceNode(Node oldNode, Node newNode){
+	private void replaceNode(Node oldNode, Node newNode) {
 		if (oldNode.isLeftChild()) {
 			oldNode.getParent().setLeft(newNode);
 			if (newNode != nil)
 				newNode.setParent(oldNode.getParent());
-		}
-		else{
+		} else {
 			oldNode.getParent().setRight(newNode);
 			if (newNode != nil)
 				newNode.setParent(oldNode.getParent());
@@ -337,29 +324,29 @@ public class RedBlackTree {
 		return current;
 	}
 
-	public void traverseInorder (Node rootNode){
-        if(rootNode != nil){
-            traverseInorder(rootNode.getLeft());
-            System.out.println(rootNode.getKey() + " color " + rootNode.getColor());
-            traverseInorder(rootNode.getRight());
-        }
-    }
-	
-	public int getHeight(){
+	public void traverseInorder(Node rootNode) {
+		if (rootNode != nil) {
+			traverseInorder(rootNode.getLeft());
+			System.out.println(rootNode.getKey() + " color " + rootNode.getColor());
+			traverseInorder(rootNode.getRight());
+		}
+	}
+
+	public int getHeight() {
 		return calculateHeight(this.root);
 	}
-	
+
 	private int calculateHeight(Node node) {
-		if(node == nil)
+		if (node == nil)
 			return 0;
 		// Calculate the height of each subtree
 		int leftSubtreeHeight = calculateHeight(node.getLeft());
 		int rightSubtreeHeight = calculateHeight(node.getRight());
-		// take the larger one , +1  --> root
-        return leftSubtreeHeight > rightSubtreeHeight ? leftSubtreeHeight + 1 : rightSubtreeHeight + 1;
+		// take the larger one , +1 --> root
+		return leftSubtreeHeight > rightSubtreeHeight ? leftSubtreeHeight + 1 : rightSubtreeHeight + 1;
 	}
 
-	public int getBlackHeight(Node node){
+	public int getBlackHeight(Node node) {
 		if (node.getKey().compareToIgnoreCase("nil") == 0)
 			return 0;
 		else if (node.getColor() == Node.Color.BLACK)
@@ -379,6 +366,5 @@ public class RedBlackTree {
 	public int getSize() {
 		return size;
 	}
-	
 
 }

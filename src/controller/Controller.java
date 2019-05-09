@@ -7,7 +7,7 @@ public class Controller {
 
 	RedBlackTree tree;
 	File fr;
-	
+
 	public boolean search(String value) {
 
 		return tree.search(value);
@@ -24,23 +24,24 @@ public class Controller {
 	}
 
 	public int getSize() {
-		
-		if(tree == null)
+
+		if (tree == null)
 			return 0;
 		return tree.getSize();
 	}
-	
+
 	public int getHeight() {
-		
-		if(tree == null)
+
+		if (tree == null)
 			return 0;
 		return tree.getHeight();
 	}
+
 	public void load(String path) {
 
 		tree = new RedBlackTree();
-        fr = new File(path);
-        fr.readFile(tree);
+		fr = new File(path);
+		fr.readFile(tree);
 	}
 
 	public void save() {
@@ -50,8 +51,8 @@ public class Controller {
 
 	public void saveAs(String path) {
 
-        fr = new File(path);
-        fr.writeToFile(tree);
+		fr = new File(path);
+		fr.writeToFile(tree);
 	}
 
 }
