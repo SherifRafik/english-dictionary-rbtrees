@@ -1,5 +1,24 @@
-# EnglishDictionary
+# english-dictionary-rbtrees
 
-This repository is a mini-project for **Data Structures 2** course at *"Faculty of Engineering, Alexandria University"*.
+### Red black trees
+  * Supported Methods:
+      * Insertion
+      * Deletion
+      * Search
+      * Get Minimum
+      * Inorder Successor
+      * Get black height
+      * Get tree height
 
-English Dictionary uses **Red Black Trees** data structure to perform efficient searching operations in a list of words loaded from a text file (words of the dictionary). It provides, as well, search, insertion and deletion.
+### English dictionary application
+  * User can:
+    * Load up a dictionary
+    * Get dictionary size
+    * Insert a new word
+    * Look-up a word
+    * Remove a word
+    * Save the modified dictionary
+    
+<p align="center">
+  <img  src="https://user-images.githubusercontent.com/48100957/57481797-3ff88c80-72a3-11e9-85ef-d33000b29a78.png">
+</p>
